@@ -1,11 +1,12 @@
-/*terraform {
-  required_providers {
-    github = {
-      source  = "integrations/github"
-      version = "~> 4.0"
+terraform {
+  backend "remote" {
+    organization = "nalinkumar-iac"
+
+    workspaces {
+      name = "api-driven"
     }
   }
-}*/
+}
 
 # Configure the GitHub Provider
 provider "github" {
