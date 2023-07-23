@@ -24,6 +24,7 @@ resource "github_repository" "iac-github" {
   auto_init = true
   #private = false
   visibility = "public"
+  archive_on_destroy = true
 
 }
 
