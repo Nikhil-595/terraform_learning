@@ -39,7 +39,7 @@ resource "github_repository" "repo" {
 
 
 resource "github_branch" "branches" {
-  repository = github_repository.repo[each.key]
+  repository = github_repository.repo[for_each.key]
    for_each = toset([ "AUG23", "SEP23", "OCT23"])
     branch     = each.key
     source_branch = "master"
