@@ -15,7 +15,7 @@ provider "github" {
 }
 
 variable "github_token" {
-    default = "cooku_with_comali"
+    default = "cooku_with_comali-04"
 }
 
 resource "github_repository" "iac-github" {
