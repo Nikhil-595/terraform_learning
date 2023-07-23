@@ -39,18 +39,18 @@ resource "github_repository" "repo" {
 
 
 resource "github_branch" "branches" {
-  repository = github_repository.repo.name
+  repository = github_repository.repo[each.key]
    for_each = toset([ "AUG23", "SEP23", "OCT23"])
     branch     = each.key
     source_branch = "master"
 
   depends_on = [
-    github_repository.repo.name
+    github_repository.repo
   ]
 }
 
 resource "github_branch_protection" "nalinture" {
-  repository_id  = github_repository.repo.name
+  repository_id  = github_repository.repo[each.key]
   for_each = toset( ["master", "AUG23"] )
   pattern  = each.key
   //allows_deletions = false
@@ -58,7 +58,7 @@ resource "github_branch_protection" "nalinture" {
 }
 
 resource "github_repository_file" "files" {
-repository          = github_repository.repo.name
+repository          = github_repository.repo[each.key]
 branch              = "master"
 file                = ".gitignore"
 content             = "**/*.tfstate"
