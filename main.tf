@@ -28,9 +28,10 @@ resource "github_repository" "iac-github-04" {
 
 }
 
-resource "github_branch" "dev" {
+resource "github_branch" "branches" {
   repository = "iac-github-04"
-  branch     = "dev"
+  for_each = toset([ "AUG23", "SEP23"])
+  branch     = each.key
   source_branch = "master"
 
   depends_on = [
@@ -40,9 +41,8 @@ resource "github_branch" "dev" {
 
 resource "github_branch_protection" "nalinture" {
   repository_id  = github_repository.iac-github-04.name
-  for_each = toset( ["master", "dev"] )
+  for_each = toset( ["master", "AUG23"] )
   pattern  = each.key
-  archive_on_destroy = true
   //allows_deletions = false
 
 }
