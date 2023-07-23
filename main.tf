@@ -18,8 +18,8 @@ variable "github_token" {
     default = "cooku_with_comali-04"
 }
 
-resource "github_repository" "iac-github-01" {
-  name        = "iac-github-01"
+resource "github_repository" "iac-github-02" {
+  name        = "iac-github-02"
   description = "this github repo was created and managed using terraform"
   auto_init = true
   #private = false
@@ -29,24 +29,24 @@ resource "github_repository" "iac-github-01" {
 }
 
 resource "github_branch" "dev" {
-  repository = "iac-github-01"
+  repository = "iac-github-02"
   branch     = "dev"
   source_branch = "master"
 
   depends_on = [
-    github_repository.iac-github-01
+    github_repository.iac-github-02
   ]
 }
 
 resource "github_branch_protection" "nalinture" {
-  repository_id  = github_repository.iac-github-01.name
+  repository_id  = github_repository.iac-github-02.name
   pattern       = "main"
   // allows_deletions = true
 
 }
 
-resource "github_repository_file" "iac-github-01" {
-repository          = github_repository.iac-github-01.name
+resource "github_repository_file" "iac-github-02" {
+repository          = github_repository.iac-github-02.name
 branch              = "master"
 file                = ".gitignore"
 content             = "**/*.tfstate"
@@ -56,7 +56,7 @@ commit_email        = "nalinkumarmurugesan@gmail.com"
 overwrite_on_create = true
 
   depends_on = [
-    github_repository.iac-github-01
+    github_repository.iac-github-02
   ]
 
 
