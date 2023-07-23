@@ -42,7 +42,7 @@ resource "github_branch_protection" "nalinture" {
   repository_id  = github_repository.iac-github-03.name
   for_each = toset( ["master", "dev"] )
   pattern  = each.key
-  // allows_deletions = true
+  allows_deletions = false
 
 }
 
