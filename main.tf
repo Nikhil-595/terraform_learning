@@ -18,8 +18,8 @@ variable "github_token" {
     default = "cooku_with_comali-04"
 }
 
-resource "github_repository" "iac-github-testing" {
-  name        = "iac-github-testing"
+resource "github_repository" "iac-github" {
+  name        = "iac-github"
   description = "this github repo was created and managed using terraform"
   auto_init = true
   #private = false
@@ -28,17 +28,17 @@ resource "github_repository" "iac-github-testing" {
 }
 
 resource "github_branch" "dev" {
-  repository = "iac-github-testing"
+  repository = "iac-github"
   branch     = "dev"
   source_branch = "master"
 
   depends_on = [
-    github_repository.iac-github-testing
+    github_repository.iac-github
   ]
 }
 
-resource "github_repository_file" "iac-github-testing" {
-repository          = github_repository.iac-github-testing.name
+resource "github_repository_file" "iac-github" {
+repository          = github_repository.iac-github.name
 branch              = "master"
 file                = ".gitignore"
 content             = "**/*.tfstate"
@@ -48,7 +48,7 @@ commit_email        = "nalinkumarmurugesan@gmail.com"
 overwrite_on_create = true
 
   depends_on = [
-    github_repository.iac-github-testing
+    github_repository.iac-github
   ]
 
 
