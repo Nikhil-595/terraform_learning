@@ -19,7 +19,7 @@ variable "github_token" {
 }
 
 variable "repository" {
-  type = list
+  type = set(string)
   default = [ "iac-github-04", "iac-github-05", "iac-github-06" ]
 }
 
