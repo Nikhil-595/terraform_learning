@@ -38,8 +38,8 @@ resource "github_branch" "dev" {
   ]
 }
 
-resource "github_branch_protection_v3" "nalinture" {
-  repository  = github_repository.iac-github-01.name
+resource "github_branch_protection" "nalinture" {
+  repository_id  = github_repository.iac-github-01.name
   branch         = "main"
 
 }
