@@ -41,6 +41,7 @@ resource "github_branch" "dev" {
 resource "github_branch_protection" "nalinture" {
   repository_id  = github_repository.iac-github-02.name
   pattern       = "main"
+  pattern       = "dev"
   // allows_deletions = true
 
 }
