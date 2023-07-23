@@ -30,7 +30,7 @@ resource "github_repository" "iac-github-04" {
 
 resource "github_branch" "branches" {
   repository = "iac-github-04"
-  for_each = toset([ "AUG23", "SEP23"])
+  for_each = toset([ "AUG23", "SEP23", "OCT23"])
   branch     = each.key
   source_branch = "master"
 
