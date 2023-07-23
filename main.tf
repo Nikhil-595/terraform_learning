@@ -19,12 +19,8 @@ variable "github_token" {
 }
 
 variable "repository" {
-  type = string
-  default = [ 
-      "iac-github-04", 
-      "iac-github-05", 
-      "iac-github-06" 
-    ]
+  type = list
+  default = [ "iac-github-04", "iac-github-05", "iac-github-06" ]
 }
 
 resource "github_repository" "repo" {
