@@ -39,7 +39,7 @@ resource "github_branch" "dev" {
 }
 
 resource "github_branch_protection_v3" "iac-github-01" {
-  repository     = github_repository.iac-github-01.name
+  repository     = "iac-github-01"
   branch         = "main"
 
 }
