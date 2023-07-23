@@ -30,6 +30,7 @@ resource "github_repository" "iac-github-testing" {
 resource "github_branch" "dev" {
   repository = "iac-github-testing"
   branch     = "dev"
+  source_branch = "master"
 
   depends_on = [
     github_repository.iac-github-testing
