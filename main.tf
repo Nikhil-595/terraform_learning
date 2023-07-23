@@ -18,8 +18,9 @@ variable "github_token" {
     default = "cooku_with_comali-04"
 }
 
-resource "github_repository" "iac-github-04" {
-  name        = "iac-github-04"
+resource "github_repository" "repo" {
+  for_each = toset([ "iac-github-04", "iac-github-05", "iac-github-06"])
+  name        = each.key
   description = "this github repo was created and managed using terraform"
   auto_init = true
   #private = false
