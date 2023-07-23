@@ -27,7 +27,7 @@ locals {
 }
 
 resource "github_repository" "repo" {
-  for_each = locals.repos
+  for_each = local.repos
   name        = each.value.name
   description = "this github repo was created and managed using terraform"
   auto_init = true
