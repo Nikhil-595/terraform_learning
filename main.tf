@@ -18,9 +18,17 @@ variable "github_token" {
     default = "cooku_with_comali-04"
 }
 
+locals {
+ repos = {
+   "repo1" = { name = "iac-github-04" },
+   "repo2" = { name = "iac-github-05" },
+   "repo3" = { name = "iac-github-06" }
+ }
+}
+
 resource "github_repository" "repo" {
-  for_each = toset([ "iac-github-04", "iac-github-05", "iac-github-06"])
-  name        = each.key
+  for_each = locals.repos
+  name        = each.value.name
   description = "this github repo was created and managed using terraform"
   auto_init = true
   #private = false
@@ -29,15 +37,16 @@ resource "github_repository" "repo" {
 
 }
 
+
 resource "github_branch" "branches" {
-  for_each   = github_repository.repo.name
-  repository = each.key
-  for_each = toset([ "AUG23", "SEP23", "OCT23"])
-  branch     = each.key
-  source_branch = "master"
+ for_each   = locals.repos
+  repository = each.value.name
+   for_each = toset([ "AUG23", "SEP23", "OCT23"])
+    branch     = each.key
+    source_branch = "master"
 
   depends_on = [
-    github_repository.repo
+    github_repository.repo.name
   ]
 }
 
