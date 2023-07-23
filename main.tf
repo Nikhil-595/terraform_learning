@@ -46,7 +46,7 @@ resource "github_branch" "branches" {
 }
 
 resource "github_branch_protection" "nalinture" {
-  repository_id  = github_repository.repo[each.key]
+  repository_id  = [ for name in github_repository.repo: name ]
   for_each = toset( ["master", "AUG23"] )
   pattern  = each.key
   //allows_deletions = false
@@ -54,7 +54,8 @@ resource "github_branch_protection" "nalinture" {
 }
 
 resource "github_repository_file" "files" {
-repository          = github_repository.repo[each.key]
+for_each            = var.repository
+repository          = each.key
 branch              = "master"
 file                = ".gitignore"
 content             = "**/*.tfstate"
