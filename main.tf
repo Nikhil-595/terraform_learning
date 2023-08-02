@@ -18,36 +18,38 @@ variable "github_token" {
     default = "cooku_with_comali-04"
 }
 
-resource "github_repository" "iac-github-testing" {
-  name        = "iac-github-testing"
+resource "github_repository" "iac-github-12" {
+  name        = "iac-github-12"
   description = "this github repo was created and managed using terraform"
   auto_init = true
   #private = false
   visibility = "public"
+  archive_on_destroy = true
 
 }
 
 resource "github_branch" "dev" {
-  repository = "iac-github-testing"
+  repository = "iac-github-12"
   branch     = "dev"
+  source_branch = "master"
 
   depends_on = [
-    github_repository.iac-github-testing
+    github_repository.iac-github-12
   ]
 }
 
-resource "github_repository_file" "iac-github-testing" {
-repository          = github_repository.iac-github-testing.name
+resource "github_repository_file" "iac-github-12" {
+repository          = github_repository.iac-github-12.name
 branch              = "master"
 file                = ".gitignore"
 content             = "**/*.tfstate"
-commit_message      = "Managed by Terraform"
+commit_message      = "Managed by github.com/nalinture/terraform_learning"
 commit_author       = "Terraform User"
 commit_email        = "nalinkumarmurugesan@gmail.com"
 overwrite_on_create = true
 
   depends_on = [
-    github_repository.iac-github-testing
+    github_repository.iac-github-12
   ]
 
 
