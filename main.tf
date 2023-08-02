@@ -56,10 +56,10 @@ resource "github_branch" "branches" {
   ]
 }
 
-resource "github_branch_protection" "nalinture" {
+/*resource "github_branch_protection" "nalinture" {
   repository_id  = github_repository.repo.name
   for_each = toset( ["master", "AUG23"] )
   pattern  = each.key
   allows_deletions = true
 
-}
+}*/
