@@ -28,6 +28,17 @@ resource "github_repository" "repo" {
 
 }
 
+resource "github_branch" "branches" {
+  repository = "iac-github-10"
+  for_each = toset([ "AUG23", "SEP23", "OCT23"])
+  branch     = each.key
+  source_branch = "master"
+
+  depends_on = [
+    github_repository.repo
+  ]
+}
+
 resource "github_repository_file" "file" {
 repository          = github_repository.repo.name
 branch              = "master"
@@ -43,17 +54,6 @@ overwrite_on_create = true
   ]
 
 
-}
-
-resource "github_branch" "branches" {
-  repository = "iac-github-10"
-  for_each = toset([ "AUG23", "SEP23", "OCT23"])
-  branch     = each.key
-  source_branch = "master"
-
-  depends_on = [
-    github_repository.repo
-  ]
 }
 
 /*resource "github_branch_protection" "nalinture" {
