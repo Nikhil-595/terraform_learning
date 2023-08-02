@@ -28,6 +28,23 @@ resource "github_repository" "repo" {
 
 }
 
+resource "github_repository_file" "file" {
+repository          = github_repository.repo.name
+branch              = "master"
+file                = ".gitignore"
+content             = "**/*.tfstate"
+commit_message      = "Managed by github.com/nalinture/terraform_learning"
+commit_author       = "Terraform User"
+commit_email        = "nalinkumarmurugesan@gmail.com"
+overwrite_on_create = true
+
+  depends_on = [
+    github_repository.repo
+  ]
+
+
+}
+
 resource "github_branch" "branches" {
   repository = "iac-github-08"
   for_each = toset([ "AUG23", "SEP23", "OCT23"])
@@ -44,22 +61,5 @@ resource "github_branch_protection" "nalinture" {
   for_each = toset( ["master", "AUG23"] )
   pattern  = each.key
   allows_deletions = true
-
-}
-
-resource "github_repository_file" "file" {
-repository          = github_repository.repo.name
-branch              = "master"
-file                = ".gitignore"
-content             = "**/*.tfstate"
-commit_message      = "Managed by github.com/nalinture/terraform_learning"
-commit_author       = "Terraform User"
-commit_email        = "nalinkumarmurugesan@gmail.com"
-overwrite_on_create = true
-
-  depends_on = [
-    github_repository.repo
-  ]
-
 
 }
