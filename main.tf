@@ -19,7 +19,7 @@ variable "github_token" {
 }
 
 resource "github_repository" "repo" {
-  name        = "iac-github-10"
+  name        = "iac-github-11"
   description = "this github repo was created and managed using terraform"
   auto_init = true
   #private = false
@@ -29,7 +29,7 @@ resource "github_repository" "repo" {
 }
 
 resource "github_branch" "branches" {
-  repository = "iac-github-10"
+  repository = "iac-github-11"
   for_each = toset([ "AUG23", "SEP23", "OCT23"])
   branch     = each.key
   source_branch = "master"
