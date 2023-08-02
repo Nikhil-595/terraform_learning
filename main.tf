@@ -18,14 +18,8 @@ variable "github_token" {
     default = "cooku_with_comali-04"
 }
 
-variable "repository" {
-  type = set(string)
-  default = [ "iac-github-04", "iac-github-05", "iac-github-06" ]
-}
-
 resource "github_repository" "repo" {
-  for_each = var.repository
-  name        = each.key
+  name        = "iac-github-08"
   description = "this github repo was created and managed using terraform"
   auto_init = true
   #private = false
@@ -34,12 +28,11 @@ resource "github_repository" "repo" {
 
 }
 
-
 resource "github_branch" "branches" {
-  repository = [ for name in github_repository.repo: name ]
-   for_each = toset([ "AUG23", "SEP23", "OCT23"])
-    branch     = each.key
-    source_branch = "master"
+  repository = "iac-github-08"
+  for_each = toset([ "AUG23", "SEP23", "OCT23"])
+  branch     = each.key
+  source_branch = "master"
 
   depends_on = [
     github_repository.repo
@@ -47,16 +40,15 @@ resource "github_branch" "branches" {
 }
 
 resource "github_branch_protection" "nalinture" {
-  repository_id  = [ for name in github_repository.repo: name ]
+  repository_id  = github_repository.repo.name
   for_each = toset( ["master", "AUG23"] )
   pattern  = each.key
   //allows_deletions = false
 
 }
 
-resource "github_repository_file" "files" {
-for_each            = var.repository
-repository          = each.key
+resource "github_repository_file" "file" {
+repository          = github_repository.repo.name
 branch              = "master"
 file                = ".gitignore"
 content             = "**/*.tfstate"
