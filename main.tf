@@ -1,6 +1,6 @@
 terraform {
   backend "remote" {
-    organization = "nalinkumar-iac"
+    organization = "github_iac"
 
     workspaces {
       name = "api-driven"
