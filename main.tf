@@ -19,7 +19,7 @@ variable "github_token" {
 }
 
 resource "github_repository" "repo" {
-  name        = "iac-github-14"
+  name        = "iac-github-15"
   description = "this github repo was created and managed using terraform"
   auto_init = true
   #private = false
@@ -29,7 +29,7 @@ resource "github_repository" "repo" {
 }
 
 resource "github_branch" "dev" {
-  repository = "iac-github-13"
+  repository = "iac-github-15"
   branch     = "dev"
   source_branch = "master"
 
@@ -41,7 +41,7 @@ resource "github_branch" "dev" {
 resource "github_repository_file" "file" {
 repository          = github_repository.repo.name
 branch              = "master"
-file                = ".txt"
+file                = ".gitignore"
 content             = "**/*.tfstate"
 commit_message      = "Managed by github.com/nalinture/terraform_learning"
 commit_author       = "Terraform User"
