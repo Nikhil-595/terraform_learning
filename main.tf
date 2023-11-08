@@ -1,56 +1,26 @@
 terraform {
-  backend "remote" {
-    organization = "nalinkumar-iac"
-
-    workspaces {
-      name = "api-driven"
+    backend "remote" {
+        organization = "NikhilMSD0209"
     }
-  }
 }
 
-# Configure the GitHub Provider
 provider "github" {
     token = var.github_token
-    owner = "nalinture"
+    owner = "Nikhil-595"
 }
 
 variable "github_token" {
-    default = "cooku_with_comali-04"
+    default = "2243"
 }
 
 resource "github_repository" "repo" {
-  name        = "iac-github-15"
-  description = "this github repo was created and managed using terraform"
-  auto_init = true
-  #private = false
-  visibility = "public"
-  archive_on_destroy = true
-
+    name = "my_first_repository_using_terraform"
+    description = "created this repository using terraform"
 }
 
-resource "github_branch" "dev" {
-  repository = "iac-github-15"
-  branch     = "dev"
-  source_branch = "master"
-
-  depends_on = [
-    github_repository.repo
-  ]
-}
-
-resource "github_repository_file" "file" {
-repository          = github_repository.repo.name
-branch              = "master"
-file                = ".gitignore"
-content             = "**/*.tfstate"
-commit_message      = "Managed by github.com/nalinture/terraform_learning"
-commit_author       = "Terraform User"
-commit_email        = "nalinkumarmurugesan@gmail.com"
-overwrite_on_create = true
-
-  depends_on = [
-    github_repository.repo
-  ]
-
-
+resource "github_branch" "sub_branch1" {
+    repository = "my_first_repository_using_terraform"
+    branch = "abrakadabra"
+    source_branch = "master"
+    depends_on =[github_repository.repo]
 }
